@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import jdbc.board.exam.BoardDTO;
-import jdbc.board.exam.DBUtill;
-
 public class MemberDAOImpl implements MemberDAO{
 	public int insert(MemberDTO member) {
 		System.out.println("dto사용 메소드: "+member);
@@ -18,7 +15,7 @@ public class MemberDAOImpl implements MemberDAO{
 		String sql = "insert into member values(?,?,?,?,?,sysdate,1000)";
 		int result = 0;//메소드의 실행결과가 저장될 변수. 
 		try {
-			con = DBUtill.getConnect();//DBMS연결
+			con = DBUtil.getConnection();//DBMS연결
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, member.getId());
 			stmt.setString(2, member.getPass());
@@ -29,7 +26,7 @@ public class MemberDAOImpl implements MemberDAO{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBUtill.close(null, stmt, con);
+			DBUtil.close(null, stmt, con);
 		}
 		return result;
 	}
@@ -41,7 +38,7 @@ public class MemberDAOImpl implements MemberDAO{
 		String sql = "delete member where id = ?";
 		int result = 0;
 		try {
-			con = DBUtill.getConnect();
+			con = DBUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 			
 			stmt.setString(1, id);
@@ -50,7 +47,7 @@ public class MemberDAOImpl implements MemberDAO{
 		}catch(SQLException e) {
 			System.out.println("연결 실패"+e.getMessage());
 		}finally {
-			DBUtill.close(null, stmt, con);
+			DBUtil.close(null, stmt, con);
 		}
 		return result;
 
@@ -66,7 +63,7 @@ public class MemberDAOImpl implements MemberDAO{
 		sql.append("where id = ? ");
 		int result = 0;
 		try {
-			con = DBUtill.getConnect();//DBMS에 연결
+			con = DBUtil.getConnection();//DBMS에 연결
 			stmt = con.prepareStatement(sql.toString());
 			
 			stmt.setString(1, addr);
@@ -76,7 +73,7 @@ public class MemberDAOImpl implements MemberDAO{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBUtill.close(null, stmt, con);
+			DBUtil.close(null, stmt, con);
 		}
 		return result;
 	}
@@ -91,7 +88,7 @@ public class MemberDAOImpl implements MemberDAO{
 		ResultSet rs = null;
 			
 		try {
-			con = DBUtill.getConnect();
+			con = DBUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
@@ -103,7 +100,7 @@ public class MemberDAOImpl implements MemberDAO{
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}finally {
-				DBUtill.close(rs, stmt, con);
+				DBUtil.close(rs, stmt, con);
 			}
 			return boardlist;
 	}
@@ -118,7 +115,7 @@ public class MemberDAOImpl implements MemberDAO{
 		ResultSet rs = null;
 		
 		try {
-			con = DBUtill.getConnect();
+			con = DBUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%"+addr+"%");
 			rs = stmt.executeQuery();
@@ -131,7 +128,7 @@ public class MemberDAOImpl implements MemberDAO{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBUtill.close(rs, stmt, con);
+			DBUtil.close(rs, stmt, con);
 		}
 		return boardlist;
 	}
@@ -144,7 +141,7 @@ public class MemberDAOImpl implements MemberDAO{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			con = DBUtill.getConnect();
+			con = DBUtil.getConnection();
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, id);
 			stmt.setString(2, pass);
@@ -157,7 +154,7 @@ public class MemberDAOImpl implements MemberDAO{
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}finally {
-				DBUtill.close(rs, stmt, con);
+				DBUtil.close(rs, stmt, con);
 			}
 		return board;
 	}
