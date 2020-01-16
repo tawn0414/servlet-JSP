@@ -1,11 +1,10 @@
-package jdbc.member.exam;
+package fw;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 public class DBUtil {
 	static {
 		try {
@@ -22,7 +21,7 @@ public class DBUtil {
 		String password = "tiger";
 	
 		try {
-			con = DriverManager.getConnection(url);
+			con = DriverManager.getConnection(url, user, password);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
