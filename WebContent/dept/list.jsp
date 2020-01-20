@@ -11,7 +11,7 @@
 <body>
 	<% 
 	    ArrayList<DeptDTO> arrlist= (ArrayList<DeptDTO>)request.getAttribute("arrlist");
-	    int size= (int)request.getAttribute("size");
+	    int size= (int)request.getAttribute("size"); //선생님은 arrlist.size();로 하셨네
 	%>
 	<h1>부서목록보기~~~~^^</h1>	
 	<table width="500px" border="1">
@@ -24,7 +24,7 @@
 	%>	
 		<tr>
 			<td><%=dept.getDeptno() %></td>
-			<td><%=dept.getDeptName() %></td>
+			<td><a href="/serverweb/dept/read.do?deptno=<%=dept.getDeptno()%>&info=한글데이터"><%=dept.getDeptName() %></a></td>
 			<td><%=dept.getTel() %></td>
 			<td><%=dept.getLoc() %></td>
 			<td><%=dept.getMgr() %></td>
